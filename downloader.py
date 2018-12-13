@@ -127,8 +127,6 @@ if __name__ == '__main__':
 	except OSError:
 		print(course_name + 'Already exists')
 
-	j = 1
-
 	for video_content in video_content_list:
 		path = course_name + '/' + video_content['date']
 		try:
