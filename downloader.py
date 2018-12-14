@@ -65,12 +65,23 @@ def set_session_cookie(s, cookies):
 
 def get_section_ids(driver, course_url):
 	driver.get(course_url)
-	content = driver.find_elements_by_class_name('questions-link')
-
 	section_ids = []
+
+	content = driver.find_elements_by_class_name('questions-link')
+	
 	for c in content:
 		question_url = c.get_attribute('href')
 		section_id = re.split(r'/', question_url)[-2]
+		section_ids.append(section_id)
+	
+	if content != []:
+		return section_ids
+
+	content = driver.find_elements_by_class_name('menu-opener')
+
+	for c in content:
+		controll_url = c.get_attribute('aria-controls')
+		section_id = controll_url.strip('_Video_menu')
 		section_ids.append(section_id)
 
 	return section_ids
